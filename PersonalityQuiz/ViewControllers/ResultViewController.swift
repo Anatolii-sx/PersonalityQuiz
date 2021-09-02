@@ -18,7 +18,7 @@ class ResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.setHidesBackButton(true, animated: true)
+        navigationItem.hidesBackButton = true
         
         getResultAnimal(countOfAnimals: calculateResults())
         
@@ -26,29 +26,12 @@ class ResultViewController: UIViewController {
     }
     
     private func calculateResults() -> [Animal: Int] {
-        
-        var countOfDogs = 0
-        var countOfCats = 0
-        var countOfRabbits = 0
-        var countOfTurtles = 0
-        
         var countOfAnimals: [Animal: Int] = [:]
-
-        for result in results {
-            switch result.animal {
-            case .dog:
-                countOfDogs += 1
-                countOfAnimals[result.animal] = countOfDogs
-            case .cat:
-                countOfCats += 1
-                countOfAnimals[result.animal] = countOfCats
-            case .rabbit:
-                countOfRabbits += 1
-                countOfAnimals[result.animal] = countOfRabbits
-            case .turtle:
-                countOfTurtles += 1
-                countOfAnimals[result.animal] = countOfTurtles
-            }
+        
+        let animals = results.map{ $0.animal }
+        
+        for animal in animals {
+            countOfAnimals[animal] = (countOfAnimals[animal] ?? 0) + 1
         }
         
         return countOfAnimals
